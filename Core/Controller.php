@@ -8,9 +8,10 @@ namespace Core;
 
 class Controller {
     
-    protected $view;
+    protected static $view;
 
     public function __construct() {
+        session_start();
         $this->view = new View();
     }
 }
