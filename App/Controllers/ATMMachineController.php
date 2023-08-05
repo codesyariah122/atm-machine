@@ -2,10 +2,10 @@
 namespace App\Controllers;
 
 use Core\Controller;
-use Core\Interfaces\ATMInterface;
+use Core\Interfaces\{ATMInterface, ControllerInterface};
 use App\Data\WebSource;
 
-class ATMMachineController extends Controller  implements ATMInterface {
+class ATMMachineController extends Controller  implements ATMInterface, ControllerInterface {
 
     private $balance;
 
@@ -16,19 +16,19 @@ class ATMMachineController extends Controller  implements ATMInterface {
 
     public function views($layout, $param)
     {
-         $contents = WebSource::renderContents($param['page']);
+       $contents = WebSource::renderContents($param['page']);
 
-         extract($contents);
+       extract($contents);
 
-         ob_start();
-         require_once $param['view'];
-         $content = ob_get_clean();
+       ob_start();
+       require_once $param['view'];
+       $content = ob_get_clean();
 
-         ob_start();
-         require_once $layout;
-         $output = ob_get_clean();
+       ob_start();
+       require_once $layout;
+       $output = ob_get_clean();
 
-         echo $output;
+       echo $output;
     }
 
     public function index(){
@@ -43,6 +43,8 @@ class ATMMachineController extends Controller  implements ATMInterface {
 
         self::views($layout, $dataViews);
     }
+
+    public function authenticate(){}
 
     public function checkBalance() {
         return $this->balance;
@@ -73,6 +75,10 @@ class ATMMachineController extends Controller  implements ATMInterface {
         } else {
             return "Invalid transfer amount or insufficient funds.";
         }
+    }
+
+    public function all(){
+        
     }
 }
 

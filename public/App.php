@@ -6,9 +6,7 @@ use App\Config\Router;
 $app = new Router;
 
 $app->group('home', function ($app) {
-    // Homepage route
-    $app->get('/', 'HomeController@index');
-    $app->get('/atm', 'ATMMachineController@index');
+    $app->get('/', 'ATMMachineController@index');
 });
 
 $app->run();
